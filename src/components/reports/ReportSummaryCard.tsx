@@ -2,7 +2,7 @@ export default function ReportSummaryCard() {
   return (
     <div
       className="
-        rounded-[32px]
+        rounded-4xl
         overflow-hidden
         shadow
         mb-10
@@ -11,7 +11,7 @@ export default function ReportSummaryCard() {
       {/* Top Gradient */}
       <div
         className="
-          bg-gradient-to-r
+          bg-linear-to-r
           from-blue-700
           to-cyan-500
           p-8
