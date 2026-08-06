@@ -44,10 +44,13 @@ export default function StoresPage() {
   }, []);
 
   const filteredStores = stores.filter((store) => {
+    const searchTerm = search.toLowerCase();
+
     const matchesSearch =
-      store.name.toLowerCase().includes(search.toLowerCase()) ||
-      store.owner_name.toLowerCase().includes(search.toLowerCase()) ||
-      store.city.toLowerCase().includes(search.toLowerCase());
+      (store.name ?? "").toLowerCase().includes(searchTerm) ||
+      (store.owner_name ?? "").toLowerCase().includes(searchTerm) ||
+      (store.city ?? "").toLowerCase().includes(searchTerm);
+
 
     const matchesStatus =
       statusFilter === "all" ||
