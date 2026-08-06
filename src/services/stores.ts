@@ -47,3 +47,13 @@ export const activateStore = async (
   );
 
 };
+
+export const getStoreCredentials = async (
+  id: number
+) => {
+  const response = await api.get(
+    `/api/stores/${id}/credentials`
+  );
+
+  return response.data;
+};
