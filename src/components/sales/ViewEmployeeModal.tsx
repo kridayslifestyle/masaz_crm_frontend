@@ -16,6 +16,8 @@ export default function ViewEmployeeModal({
 
       <div className="bg-white rounded-3xl p-8 w-[800px]">
 
+        {/* Header */}
+
         <div className="flex justify-between items-center mb-8">
 
           <h2 className="text-3xl font-bold">
@@ -31,37 +33,62 @@ export default function ViewEmployeeModal({
 
         </div>
 
+        {/* Employee Information */}
+
         <div className="grid grid-cols-2 gap-6">
 
-          <Info title="Name" value={employee.name} />
-          <Info title="Phone" value={employee.phone} />
+          <Info
+            title="Employee Code"
+            value={employee.employee_code || "-"}
+          />
 
-          <Info title="Email" value={employee.email} />
-          <Info title="Region" value={employee.region} />
+          <Info
+            title="Name"
+            value={employee.name || "-"}
+          />
+
+          <Info
+            title="Phone"
+            value={employee.phone || "-"}
+          />
+
+          <Info
+            title="Email"
+            value={employee.email || "-"}
+          />
 
           <Info
             title="Designation"
-            value={employee.designation}
+            value={employee.designation || "-"}
+          />
+
+          <Info
+            title="City"
+            value={employee.city || "-"}
           />
 
           <Info
             title="Joining Date"
-            value={employee.joining_date}
+            value={employee.joining_date || "-"}
+          />
+
+          <Info
+            title="Salary"
+            value={
+              employee.salary !== null &&
+              employee.salary !== undefined
+                ? `₹${employee.salary.toLocaleString()}`
+                : "-"
+            }
           />
 
           <Info
             title="Status"
-            value={employee.status}
-          />
-
-          <Info
-            title="Target Revenue"
-            value={`₹${employee.target_revenue?.toLocaleString()}`}
-          />
-
-          <Info
-            title="Commission %"
-            value={`${employee.commission_percentage}%`}
+            value={
+              employee.is_active
+                ? "Active"
+                : "Inactive"
+            }
           />
 
           <Info
@@ -80,12 +107,16 @@ export default function ViewEmployeeModal({
 
           <Info
             title="Performance"
-            value={`${employee.performance_percentage ?? 0}%`}
+            value={`${
+              employee.performance_percentage ?? 0
+            }%`}
           />
 
           <Info
             title="Incentive Earned"
-            value={`₹${employee.incentive_amount?.toLocaleString() ?? 0}`}
+            value={`₹${(
+              employee.incentive_amount ?? 0
+            ).toLocaleString()}`}
           />
 
         </div>
