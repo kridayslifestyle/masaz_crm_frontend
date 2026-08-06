@@ -25,7 +25,7 @@ export const createEmployee = async (
   data: Partial<Employee>
 ) => {
   const response = await api.post(
-    "/api/employees",
+    "/api/employees/",
     data
   );
 

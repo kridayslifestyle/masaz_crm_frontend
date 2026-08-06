@@ -1,29 +1,26 @@
 export interface Employee {
   id: number;
 
+  employee_code: string;
   name: string;
 
-  phone: string;
+  phone?: string | null;
+  email?: string | null;
 
-  email: string;
+  designation?: string | null;
+  city?: string | null;
 
-  region: string;
+  joining_date?: string | null;
 
-  designation: string;
+  salary?: number | null;
 
-  target_revenue: number;
+  is_active: boolean;
 
-  commission_percentage: number;
+  created_at?: string;
 
-  joining_date: string;
-
-  status: string;
-
+  // Calculated frontend/backend fields if used elsewhere
   assigned_stores?: number;
-
   assigned_chairs?: number;
-
   performance_percentage?: number;
-
   incentive_amount?: number;
 }
