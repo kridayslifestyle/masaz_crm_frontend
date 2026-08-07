@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import ServiceTable from "./ServiceTable";
+import CreateComplaintModal from "./CreateComplaintModal"; // ✅ IMPORT
 import { getComplaints } from "@/services/service";
 import { Complaint } from "@/types/service";
 
 export default function ServicePageClient() {
   const [data, setData] = useState<Complaint[]>([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false); // ✅ MODAL STATE
 
   const fetchData = async () => {
     try {
@@ -22,26 +24,43 @@ export default function ServicePageClient() {
   };
 
   useEffect(() => {
-    console.log("Fetching complaints...");
     fetchData();
   }, []);
 
-  
-
   if (loading) {
-
     return <div className="p-6">Loading complaints...</div>;
   }
 
-  if (data.length === 0) {
-    return <div className="p-6">No complaints found</div>;
-  }
-
   return (
-
-    
     <div className="p-6">
-      <ServiceTable data={data} fetchData={fetchData} />
+
+      {/* 🔥 HEADER + BUTTON */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Service Complaints</h1>
+
+        <button
+          onClick={() => setOpen(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-xl"
+        >
+          + New Complaint
+        </button>
+      </div>
+
+      {/* ❗ EMPTY STATE FIX */}
+      {data.length === 0 ? (
+        <div>No complaints found</div>
+      ) : (
+        <ServiceTable data={data} fetchData={fetchData} />
+      )}
+
+      {/* 🔥 MODAL */}
+      {open && (
+        <CreateComplaintModal
+          onClose={() => setOpen(false)}
+          onSuccess={fetchData}
+        />
+      )}
+
     </div>
   );
 }
