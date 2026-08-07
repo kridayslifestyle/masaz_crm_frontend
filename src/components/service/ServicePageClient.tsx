@@ -26,7 +26,10 @@ export default function ServicePageClient() {
     fetchData();
   }, []);
 
+  
+
   if (loading) {
+
     return <div className="p-6">Loading complaints...</div>;
   }
 
@@ -35,6 +38,8 @@ export default function ServicePageClient() {
   }
 
   return (
+
+    
     <div className="p-6">
       <ServiceTable data={data} fetchData={fetchData} />
     </div>
