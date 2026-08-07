@@ -37,12 +37,13 @@ export default function CreateComplaintModal({
     const fetchData = async () => {
       try {
         const storeRes = await getStores();
+        console.log("Stores API:", storeRes);
         const chairRes = await getChairs();
         const techRes = await getTechnicians();
 
-        setStores(storeRes.data);
-        setChairs(chairRes.data);
-        setTechnicians(techRes.data);
+        setStores(storeRes.data || storeRes);
+        setChairs(chairRes.data || chairRes);
+        setTechnicians(techRes.data || techRes);
       } catch (err) {
         console.error("Error loading data", err);
       }
@@ -54,9 +55,7 @@ export default function CreateComplaintModal({
   // ✅ Filter chairs when store changes + reset chair
   useEffect(() => {
     if (form.store_id) {
-      const filtered = chairs.filter(
-        (c) => c.store_id === form.store_id
-      );
+      const filtered = chairs.filter((c) => c.store_id === form.store_id);
       setFilteredChairs(filtered);
 
       setForm((prev) => ({
@@ -89,22 +88,19 @@ export default function CreateComplaintModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-3xl p-8 w-[700px] max-h-[90vh] overflow-y-auto">
-
         {/* Header */}
         <div className="flex justify-between mb-6">
-          <h2 className="text-2xl font-bold">
-            Create Complaint
-          </h2>
+          <h2 className="text-2xl font-bold">Create Complaint</h2>
 
           <button onClick={onClose}>✕</button>
         </div>
 
         {/* Form */}
         <div className="grid grid-cols-2 gap-4">
-
           {/* Store */}
           <select
             className="border p-3 rounded-xl"
+            value={form.store_id}
             onChange={(e) =>
               setForm({
                 ...form,
@@ -113,11 +109,16 @@ export default function CreateComplaintModal({
             }
           >
             <option value="">Select Store</option>
-            {stores.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
+
+            {stores?.length > 0 ? (
+              stores.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>No stores found</option>
+            )}
           </select>
 
           {/* Chair */}
@@ -230,7 +231,9 @@ export default function CreateComplaintModal({
             }
           >
             <option value="low">Low</option>
-            <option value="medium" selected>Medium</option>
+            <option value="medium" selected>
+              Medium
+            </option>
             <option value="high">High</option>
           </select>
 
@@ -245,12 +248,10 @@ export default function CreateComplaintModal({
               })
             }
           />
-
         </div>
 
         {/* Buttons */}
         <div className="flex justify-end gap-3 mt-6">
-
           <button
             onClick={onClose}
             className="bg-gray-200 px-4 py-2 rounded-xl"
@@ -264,9 +265,7 @@ export default function CreateComplaintModal({
           >
             Create Complaint
           </button>
-
         </div>
-
       </div>
     </div>
   );
