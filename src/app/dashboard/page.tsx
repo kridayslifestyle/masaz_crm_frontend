@@ -122,7 +122,7 @@ export default function DashboardPage() {
 
         {/* SERVICE KPIs */}
 
-        {service && (
+        {/* {service && (
           <div className="grid grid-cols-4 gap-6 mt-6">
             <div className="bg-white rounded-xl shadow p-6">
               <h3 className="text-gray-500">Total Complaints</h3>
@@ -152,7 +152,7 @@ export default function DashboardPage() {
               </p>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       
       {/* CHARTS */}
