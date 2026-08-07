@@ -14,7 +14,7 @@ import RecentCollectionsTable from "@/components/dashboard/RecentCollectionsTabl
 import { getDashboardSummary } from "@/services/dashboard";
 import { getRecentAlerts } from "@/services/alerts";
 import { getEmployeePerformance } from "@/services/employees";
-
+import { getServiceSummary } from "@/services/service";
 import { DashboardData } from "@/types/dashboard";
 
 export default function DashboardPage() {
@@ -24,22 +24,27 @@ export default function DashboardPage() {
 
   const [employees, setEmployees] = useState<any[]>([]);
 
+  const [service, setService] = useState<any>(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        const [dashboardData, alertsData, employeeData] = await Promise.all([
-          getDashboardSummary(),
-          getRecentAlerts(),
-          getEmployeePerformance(),
-        ]);
+        const [dashboardData, alertsData, employeeData, serviceData] =
+          await Promise.all([
+            getDashboardSummary(),
+            getRecentAlerts(),
+            getEmployeePerformance(),
+            getServiceSummary(),
+          ]);
 
         setData(dashboardData);
 
         setAlerts(alertsData);
 
         setEmployees(employeeData);
+        setService(serviceData);
       } catch (error) {
         console.error(error);
       } finally {
@@ -114,6 +119,40 @@ export default function DashboardPage() {
             {data?.kpis.low_performing_chairs}
           </p>
         </div>
+
+        {/* SERVICE KPIs */}
+
+        {service && (
+          <div className="grid grid-cols-4 gap-6 mt-6">
+            <div className="bg-white rounded-xl shadow p-6">
+              <h3 className="text-gray-500">Total Complaints</h3>
+              <p className="text-3xl font-bold mt-2">
+                {service.total_complaints}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-6">
+              <h3 className="text-gray-500">Open</h3>
+              <p className="text-3xl font-bold mt-2 text-red-500">
+                {service.open}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-6">
+              <h3 className="text-gray-500">In Progress</h3>
+              <p className="text-3xl font-bold mt-2 text-yellow-500">
+                {service.in_progress}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-6">
+              <h3 className="text-gray-500">Resolved</h3>
+              <p className="text-3xl font-bold mt-2 text-green-500">
+                {service.resolved}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* CHARTS */}
