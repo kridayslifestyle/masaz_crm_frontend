@@ -12,36 +12,26 @@ import {
   Award,
   FileBarChart,
   Settings,
+  Wrench,
 } from "lucide-react";
 
 export default function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 w-72 h-screen bg-[#020d35] text-white flex flex-col">
-
       {/* Logo */}
 
       <div className="p-6 border-b border-slate-800">
+        <h1 className="text-3xl font-bold">MasaZ CRM</h1>
 
-        <h1 className="text-3xl font-bold">
-          MasaZ CRM
-        </h1>
-
-        <p className="text-slate-400 text-sm mt-1">
-          Smart Revenue Management
-        </p>
-
+        <p className="text-slate-400 text-sm mt-1">Smart Revenue Management</p>
       </div>
 
       {/* Menu */}
 
       <div className="flex-1 px-4 py-6">
-
-        <p className="text-slate-400 text-sm mb-4">
-          Workspace
-        </p>
+        <p className="text-slate-400 text-sm mb-4">Workspace</p>
 
         <div className="space-y-2">
-
           <Link
             href="/dashboard"
             className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800"
@@ -64,6 +54,14 @@ export default function Sidebar() {
           >
             <Store size={18} />
             Store Management
+          </Link>
+
+          <Link
+            href="/service"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800"
+          >
+            <Wrench size={18} />
+            Service Management
           </Link>
 
           <Link
@@ -121,33 +119,20 @@ export default function Sidebar() {
             <Settings size={18} />
             Settings
           </Link>
-
         </div>
-
       </div>
 
       {/* User */}
 
       <div className="p-4 border-t border-slate-800">
-
         <div className="rounded-2xl bg-cyan-600 p-4">
+          <p className="font-semibold">Logged in as</p>
 
-          <p className="font-semibold">
-            Logged in as
-          </p>
+          <p className="text-lg font-bold">Admin</p>
 
-          <p className="text-lg font-bold">
-            Admin
-          </p>
-
-          <p className="text-sm">
-            Super Admin
-          </p>
-
+          <p className="text-sm">Super Admin</p>
         </div>
-
       </div>
-
     </aside>
   );
 }
